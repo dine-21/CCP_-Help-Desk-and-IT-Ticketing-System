@@ -48,10 +48,24 @@ def create_app():
     def internal_server_error(e):
         return render_template('base.html'), 500
 
-    # Ensure DB exists
-    if not os.path.exists(Config.DATABASE):
+    # Ensure DB exists and is properly initialized
+    needs_init = False
+    if not os.path.exists(Config.DATABASE) or os.path.getsize(Config.DATABASE) == 0:
+        needs_init = True
+    else:
+        try:
+            import sqlite3
+            conn = sqlite3.connect(Config.DATABASE)
+            tbl_count = conn.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table'").fetchone()[0]
+            conn.close()
+            if tbl_count < 8:
+                needs_init = True
+        except Exception:
+            needs_init = True
+
+    if needs_init:
         with app.app_context():
-            print("Database not found. Initializing and seeding...")
+            print("Database not found or incomplete. Initializing and seeding...")
             from seed_data import seed
             seed()
 
