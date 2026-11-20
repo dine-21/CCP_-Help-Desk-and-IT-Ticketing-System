@@ -10,8 +10,8 @@ from services.ticket_service import generate_ticket_number, log_audit, save_atta
 
 ticket_bp = Blueprint('tickets', __name__)
 
-@ticket_bp.route('/')
-@ticket_bp.route('/tickets')
+@ticket_bp.route('/', strict_slashes=False)
+@ticket_bp.route('/tickets', strict_slashes=False)
 @login_required
 def list_tickets():
     db = get_db()
