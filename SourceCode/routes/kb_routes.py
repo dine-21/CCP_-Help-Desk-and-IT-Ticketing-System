@@ -3,7 +3,7 @@ from database import get_db
 
 kb_bp = Blueprint('kb', __name__)
 
-@kb_bp.route('/kb')
+@kb_bp.route('/kb', strict_slashes=False)
 def list_articles():
     db = get_db()
     search_query = request.args.get('q', '').strip()
