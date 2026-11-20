@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Register Account — IT HelpDesk{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white text-center py-4">
+                    <i class="bi bi-person-plus fs-1 text-primary"></i>
+                    <h4 class="fw-bold mt-2 mb-0">Create Requester Account</h4>
+                    <small class="text-white-50">Join the IT Support Portal</small>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('auth.register') }}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-semibold">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required placeholder="John Doe">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Work Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="john.doe@company.com">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="department" class="form-label fw-semibold">Department</label>
+                            <select class="form-select" id="department" name="department" required>
+                                <option value="Human Resources">Human Resources (HR)</option>
+                                <option value="Finance & Accounting">Finance & Accounting</option>
+                                <option value="Engineering & Development">Engineering & Development</option>
+                                <option value="Marketing & Sales">Marketing & Sales</option>
+                                <option value="Operations & Logistics">Operations & Logistics</option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label fw-semibold">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required placeholder="Min 6 characters">
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="confirm_password" class="form-label fw-semibold">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required placeholder="Repeat password">
+                            </div>
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary py-2 fw-semibold">
+                                <i class="bi bi-check2-circle me-1"></i> Register Account
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer bg-white text-center py-3 border-0">
+                    <small class="text-muted">Already registered? <a href="{{ url_for('auth.login') }}">Sign In</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

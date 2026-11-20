@@ -1,0 +1,44 @@
+/* Enterprise Help Desk Custom Styling */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #2b303a;
+    background-color: #f7f9fc;
+}
+
+.navbar {
+    background-color: #0f2d59 !important;
+}
+
+.navbar-brand span {
+    letter-spacing: -0.3px;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+.table th {
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #495057;
+}
+
+.hover-card {
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.hover-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08) !important;
+}
+
+.bg-warning-subtle {
+    background-color: #fff9e6 !important;
+}
