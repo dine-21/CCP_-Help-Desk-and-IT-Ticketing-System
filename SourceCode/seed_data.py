@@ -5,16 +5,35 @@ SLA policies, ticket states, internal notes, and knowledge base articles.
 
 from datetime import datetime, timedelta
 import sqlite3
+import os
 from config import Config
 from database import init_db
 from services.auth_service import hash_password
 
 def seed():
+    # Clean slate reset to guarantee deterministic primary and foreign keys starting at 1
+    if os.path.exists(Config.DATABASE):
+        try:
+            conn = sqlite3.connect(Config.DATABASE)
+            cursor = conn.cursor()
+            cursor.execute("PRAGMA foreign_keys = OFF;")
+            for table in ['audit_logs', 'comments', 'attachments', 'tickets', 'kb_articles', 'categories', 'sla_policies', 'users']:
+                cursor.execute(f"DROP TABLE IF EXISTS {table};")
+            try:
+                cursor.execute("DELETE FROM sqlite_sequence;")
+            except Exception:
+                pass
+            conn.commit()
+            conn.close()
+        except Exception:
+            pass
+
     # Ensure tables exist
     init_db()
 
     conn = sqlite3.connect(Config.DATABASE)
     cursor = conn.cursor()
+    cursor.execute("PRAGMA foreign_keys = ON;")
 
     print("Seeding database...")
 
