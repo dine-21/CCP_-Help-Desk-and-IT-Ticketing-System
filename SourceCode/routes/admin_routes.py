@@ -5,7 +5,7 @@ from services.sla_service import check_and_update_breaches, format_time_remainin
 
 admin_bp = Blueprint('admin', __name__)
 
-@admin_bp.route('/admin/dashboard')
+@admin_bp.route('/admin/dashboard', strict_slashes=False)
 @login_required
 @role_required('Admin')
 def dashboard():
@@ -92,7 +92,7 @@ def dashboard():
                            overdue_tickets=overdue_tickets,
                            agent_workload=agent_workload)
 
-@admin_bp.route('/admin/users')
+@admin_bp.route('/admin/users', strict_slashes=False)
 @login_required
 @role_required('Admin')
 def user_management():
