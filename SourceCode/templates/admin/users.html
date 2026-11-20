@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}User Management — IT HelpDesk{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-0"><i class="bi bi-people text-primary me-2"></i>User & Role Administration</h3>
+            <small class="text-muted">List of all registered system users, role-based security assignments, and departments.</small>
+        </div>
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 80px;">User ID</th>
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Account Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr>
+                        <td class="text-muted">#{{ u['user_id'] }}</td>
+                        <td class="fw-bold text-dark">{{ u['name'] }}</td>
+                        <td>{{ u['email'] }}</td>
+                        <td>
+                            {% if u['role'] == 'Admin' %}
+                            <span class="badge bg-danger">Administrator</span>
+                            {% elif u['role'] == 'Agent' %}
+                            <span class="badge bg-primary">IT Support Agent</span>
+                            {% else %}
+                            <span class="badge bg-secondary">Requester</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ u['department'] }}</td>
+                        <td class="text-muted">{{ u['created_at'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
